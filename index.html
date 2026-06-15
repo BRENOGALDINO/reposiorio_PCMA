@@ -83,9 +83,11 @@ main{max-width:1000px;margin:0 auto;padding:24px 24px 60px;}
 .ano{font-size:0.7rem;color:var(--cinza-texto);font-weight:500;}
 .trecho{font-size:0.76rem;color:var(--cinza-texto);line-height:1.6;font-style:italic;background:#f8f9fc;padding:7px 12px;border-radius:4px;border-left:3px solid var(--azul);}
 mark{background:#fff3b0;color:#7a5500;border-radius:2px;padding:0 2px;}
-.card-rodape{display:flex;justify-content:flex-end;margin-top:2px;}
 .btn-abrir{display:inline-flex;align-items:center;gap:6px;background:var(--azul);color:var(--branco);border:none;border-radius:4px;padding:6px 14px;font-size:0.72rem;font-weight:600;font-family:'Inter',sans-serif;letter-spacing:0.04em;text-decoration:none;transition:background 0.15s;}
 .btn-abrir:hover{background:var(--azul-claro);}
+.btn-visualizar{display:inline-flex;align-items:center;gap:6px;background:transparent;color:var(--azul);border:1.5px solid var(--azul);border-radius:4px;padding:6px 14px;font-size:0.72rem;font-weight:600;font-family:'Inter',sans-serif;letter-spacing:0.04em;text-decoration:none;transition:all 0.15s;}
+.btn-visualizar:hover{background:var(--azul-bg);}
+.card-rodape{display:flex;justify-content:flex-end;gap:8px;margin-top:2px;}
 
 /* RESULTADO */
 .ri{font-size:0.8rem;color:var(--cinza-texto);margin-bottom:16px;padding:10px 14px;background:var(--azul-bg);border-radius:6px;border-left:3px solid var(--azul);}
@@ -528,7 +530,7 @@ function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").repl
 function hlText(txt,q){if(!q)return esc(txt);var r="",j=0,tl=txt.toLowerCase(),ql=q.toLowerCase(),len=ql.length;while(j<txt.length){var k=tl.indexOf(ql,j);if(k<0){r+=esc(txt.slice(j));break;}r+=esc(txt.slice(j,k))+"<mark>"+esc(txt.slice(k,k+len))+"</mark>";j=k+len;}return r;}
 function trechoTexto(txt,q){if(!txt||!q)return "";var tl=txt.toLowerCase(),ql=q.toLowerCase(),i=tl.indexOf(ql);if(i<0)return "";var a=Math.max(0,i-90),b=Math.min(txt.length,i+q.length+90);return hlText((a>0?"...":"")+txt.slice(a,b)+(b<txt.length?"...":""),q);}
 function getFiltrados(){var q=document.getElementById("busca").value.trim().toLowerCase();return DOCS.filter(function(d){if(filtro!=="Todos"&&d.tp!==filtro)return false;if(!q)return true;var txt=textos[decodeURIComponent(d.f)]||"";return d.t.toLowerCase().indexOf(q)>=0||d.tm.toLowerCase().indexOf(q)>=0||d.tp.toLowerCase().indexOf(q)>=0||String(d.a).indexOf(q)>=0||txt.indexOf(q)>=0;});}
-function card(d,q){var cor=COR[d.tp]||"#374151",ct=COR_TEXTO[d.tp]||"#e5e7eb";var txt=textos[decodeURIComponent(d.f)]||"",tr=trechoTexto(txt,q);return'<div class="card"><div class="card-topo"><span class="card-titulo">'+hlText(d.t,q)+'</span><div class="card-meta"><span class="badge" style="background:'+cor+';color:'+ct+'">'+esc(d.tp)+'</span><span class="ano">'+d.a+'</span></div></div>'+(tr?'<div class="trecho">'+tr+'</div>':"")+'<div class="card-rodape"><a class="btn-abrir" href="'+BASE+encodeURIComponent(decodeURIComponent(d.f))+'" target="_blank">📄 Abrir documento</a></div></div>';}
+function card(d,q){var cor=COR[d.tp]||"#374151",ct=COR_TEXTO[d.tp]||"#e5e7eb";var txt=textos[decodeURIComponent(d.f)]||"",tr=trechoTexto(txt,q);return'<div class="card"><div class="card-topo"><span class="card-titulo">'+hlText(d.t,q)+'</span><div class="card-meta"><span class="badge" style="background:'+cor+';color:'+ct+'">'+esc(d.tp)+'</span><span class="ano">'+d.a+'</span></div></div>'+(tr?'<div class="trecho">'+tr+'</div>':"")+'<div class="card-rodape"><a class="btn-visualizar" href="https://docs.google.com/viewer?url='+encodeURIComponent(BASE+decodeURIComponent(d.f))+'" target="_blank">👁️ Visualizar</a><a class="btn-abrir" href="'+BASE+encodeURIComponent(decodeURIComponent(d.f))+'" target="_blank" download>📥 Baixar</a></div></div>';}
 function rFiltros(){document.getElementById("filtros").innerHTML=tipos.map(function(t){return'<button class="fb'+(filtro===t?" ativo":"")+'" onclick="setF(\''+t+'\')">'+esc(t)+"</button>";}).join("");}
 function setF(t){filtro=t;rFiltros();render();}
 function setA(a){aba=a;document.getElementById("at").className="aba"+(a==="t"?" ativa":"");document.getElementById("ab").className="aba"+(a==="b"?" ativa":"");render();}
