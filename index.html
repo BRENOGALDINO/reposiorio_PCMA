@@ -310,7 +310,7 @@ footer span { color: var(--dourado-escuro); }
 <header>
   <div class="header-inner">
     <div class="header-top">
-      <img class="brasao" src="https://raw.githubusercontent.com/BRENOGALDINO/reposiorio_PCMA/main/brasao_pcma.png" alt="Brasão PCMA" onerror="this.style.display='none'"/>
+      <img class="brasao" src="https://raw.githubusercontent.com/BRENOGALDINO/repositorio_PCMA/main/brasao_pcma.png" alt="Brasão PCMA" onerror="this.style.display='none'"/>
       <div class="header-texto">
         <div class="header-eyebrow">Polícia Civil do Maranhão</div>
         <div class="header-titulo">Base Normativa · PCMA</div>
@@ -338,7 +338,7 @@ footer span { color: var(--dourado-escuro); }
 </footer>
 
 <script>
-var BASE="https://raw.githubusercontent.com/BRENOGALDINO/reposiorio_PCMA/main/";
+var BASE="https://raw.githubusercontent.com/BRENOGALDINO/repositorio_PCMA/main/";
 var COR={
   "Decreto":"#7c2d12",
   "Instrucao Normativa":"#1e3a5f",
@@ -453,7 +453,7 @@ var tipos=["Todos"];
 DOCS.forEach(function(d){if(tipos.indexOf(d.tp)<0)tipos.push(d.tp);});
 var aba="t",filtro="Todos",textoCarregado=false;
 
-fetch("https://brenogaldino.github.io/reposiorio_PCMA/textos_limpo.json")
+fetch("https://brenogaldino.github.io/repositorio_PCMA/textos_limpo.json")
   .then(function(r){return r.json();})
   .then(function(data){textos=data;textoCarregado=true;render();})
   .catch(function(){textoCarregado=true;render();});
